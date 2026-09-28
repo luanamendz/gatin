@@ -40,16 +40,96 @@ padding:15px 40px;border-radius:999px;cursor:pointer;font-size:1.1rem;
 
 <script>
 const paginas=[
-{tipo:"single",gif:"gifs/gatinho branco.gif",cartaBg:"#d9e8ff",textoCor:"#2d4059",tituloCor:"#4d6a91",titulo:"💌 Uma Carta",texto:"Esta página contém música.<br><br>Clique em continuar para começar."},
-{tipo:"single",gif:"gifs/gatinho feliz.gif",cartaBg:"#4a4a4a",textoCor:"#fff",tituloCor:"#fff",titulo:"Página 1",texto:"oi meu amor,<br><br>quão brega eu seria escrevendo uma cartinha por aqui?<br><br>bastante né, mas eu gosto de ser brega contigo."},
-{tipo:"single",gif:"gifs/gatinholaranjasem.gif",cartaBg:"#d8a36c",textoCor:"#3a2412",tituloCor:"#6a3c18",titulo:"Página 2",texto:"eu fico igual esse gatinho quando não te vejo...<br><br>acho que até melhora meu dia."},
-{tipo:"single",gif:"gifs/gatinhoacinzentado.gif",cartaBg:"#6f7f99",textoCor:"#fff",tituloCor:"#fff",titulo:"Página 3",texto:"eu gosto de ser bobinha contigo, mostrar vídeos ruins da minha fy, mandar um peito de frango aleatório e jogar ludo contigo."},
-{tipo:"single",gif:"gifs/gatinhorolando.gif",cartaBg:"#f3f3f3",textoCor:"#333",tituloCor:"#d85a9a",titulo:"Página 4",texto:"de ficar deitada na cama abraçada contigo... eu gosto dos nossos momentos bobinhos."},
-{tipo:"grupo",gifs:["gifs/gatinhobfeliz.gif","gifs/gatinho 2.gif","gifs/gatinho 3.gif"],cartaBg:"#ffffff",textoCor:"#333",tituloCor:"#d85a9a",titulo:"Página 5",texto:"nunca te falei mas tu é a primeira pessoa pra quem escrevo... mas eu realmente gosto de escrever pra ti."},
-{tipo:"single",gif:"gifs/gatinho apaixonado.gif",cartaBg:"#2d2323",textoCor:"#fff",tituloCor:"#ff8d8d",titulo:"Página 6",texto:"eu ainda fico nervosa e tímida contigo... eu queria ser loba e tô sendo um gatinho judiado achado na rua."},
-{tipo:"single",gif:"gifs/gatinho apaixonado.gif",cartaBg:"#412828",textoCor:"#fff",tituloCor:"#ffb2b2",titulo:"Página 7",texto:"e eu gosto de que a gente foi só nós mesmas uma com a outra..."},
-{tipo:"grupo",gifs:["gifs/orange.gif","gifs/orangecat.gif","gifs/gatinho orange.gif"],cartaBg:"#c7c3c3",textoCor:"#333",tituloCor:"#cc6d00",titulo:"Página 8",texto:"colori meu mundinho altíssimo contigo nele... sem morrer é claru."},
-{tipo:"single",gif:"gifs/gatinho estrelado.gif",cartaBg:"#08366b",textoCor:"#fff",tituloCor:"#fff",titulo:"❤️ Página 9",texto:"enfim.<br><br>não era só isso.<br><br>mas o resto eu te conto pessoalmente.<br><br>❤️"}
+{
+  tipo:"single",
+  gif:"gifs/gatinho branco.gif",
+  cartaBg:"#d9e8ff",
+  textoCor:"#2d4059",
+  tituloCor:"#4d6a91",
+  titulo:"💌 Uma Carta",
+  texto:"Esta página contém música.<br><br>Clique em continuar para começar."
+},
+{
+  tipo:"single",
+  gif:"gifs/gatinho feliz.gif",
+  cartaBg:"#4a4a4a",
+  textoCor:"#fff",
+  tituloCor:"#fff",
+  titulo:"Página 1",
+  texto:"oi meu amor,<br><br>quão brega eu seria escrevendo uma cartinha por aqui?<br><br>bastante né, mas eu gosto de ser brega contigo."
+},
+{
+  tipo:"single",
+  gif:"gifs/gatinholaranjasem.gif",
+  cartaBg:"#d8a36c",
+  textoCor:"#3a2412",
+  tituloCor:"#6a3c18",
+  titulo:"Página 2",
+  texto:"eu fico igual esse gatinho quando não te vejo, apesar da gente se ver com bastante frequência até...<br><br>muita gente fala que enjoa ver o namorado ou namorada todo dia, mas eu nunca enjoo de te ver, acho que até melhora meu dia."
+},
+{
+  tipo:"single",
+  gif:"gifs/gatinhoacinzentado.gif",
+  cartaBg:"#6f7f99",
+  textoCor:"#fff",
+  tituloCor:"#fff",
+  titulo:"Página 3",
+  texto:"eu gosto de ser bobinha contigo, e de te mostrar os vídeos ruins da minha fy, e de te mandar aleatoriamente um peito de frango no meio do dia, de ficar jogando ludo contigo...<br><br>e o jogo e tu me roubarem, já aceitei que é preconceito do jogo."
+},
+{
+  tipo:"single",
+  gif:"gifs/gatinhorolando.gif",
+  cartaBg:"#f3f3f3",
+  textoCor:"#333",
+  tituloCor:"#d85a9a",
+  titulo:"Página 4",
+  texto:"de ficar deitada na cama abraçada contigo...<br><br>apesar dos atrasos recorrentes serem errados (não aceito), eu gosto dos nossos momentos bobinhos."
+},
+{
+  tipo:"grupo",
+  gifs:["gifs/gatinhobfeliz.gif","gifs/gatinho 2.gif","gifs/gatinho 3.gif"],
+  cartaBg:"#ffffff",
+  textoCor:"#333",
+  tituloCor:"#d85a9a",
+  titulo:"Página 5",
+  texto:"nunca te falei mas tu é a primeira pessoa pra quem escrevo, nunca fui de escrever pra ninguém, eu não escrevo nem aula da faculdade kakkakak<br><br>mas eu realmente gosto de escrever pra ti."
+},
+{
+  tipo:"single",
+  gif:"gifs/gatinho apaixonado.gif",
+  cartaBg:"#2d2323",
+  textoCor:"#fff",
+  tituloCor:"#ff8d8d",
+  titulo:"Página 6",
+  texto:"eu ainda fico nervosa e tímida contigo, acho isso engraçado porque a gente já está juntas a um tempinho e sempre parece a primeira vez q a gente conversa...<br><br>sou bobinha por ti, tipo eu to indo de boa de uber até tua casa, ai quando chega a hora de bater no portão eu já fico nervosa, que sapatona tímida é essa?<br><br>eu queria ser loba e tô sendo um gatinho judiado achado na rua."
+},
+{
+  tipo:"single",
+  gif:"gifs/gatinho apaixonado.gif",
+  cartaBg:"#412828",
+  textoCor:"#fff",
+  tituloCor:"#ffb2b2",
+  titulo:"Página 7",
+  texto:"e eu gosto de que a gente foi só nós mesmas uma com a outra...<br><br>não precisou ninguém nos arranjar, ou se conhecer no umbral das sapatões q é o tinder, nem pelo insta nem nada, só foi uma coisa ligando a outra, e a gente se conheceu."
+},
+{
+  tipo:"grupo",
+  gifs:["gifs/orange.gif","gifs/orangecat.gif","gifs/gatinho orange.gif"],
+  cartaBg:"#c7c3c3",
+  textoCor:"#333",
+  tituloCor:"#cc6d00",
+  titulo:"Página 8",
+  texto:"colori meu mundinho altíssimo contigo nele, e eu gostei disso, meu famoso gatinho laranja formato grande, famoso lião...<br><br>gosto do teu jeito, e acho engraçado quando tu contas as histórias do teu dia, por mais que eu queira esfolar uns 2, pra pararem de dar em cima de ti, só posso desejar que eles tropecem e caiam dentro de um jazigo, sem morrer é claru."
+},
+{
+  tipo:"single",
+  gif:"gifs/gatinho estrelado.gif",
+  cartaBg:"#08366b",
+  textoCor:"#fff",
+  tituloCor:"#fff",
+  titulo:"❤️ Página 9",
+  texto:"enfim.<br><br>não era só isso.<br><br>mas o resto eu te conto pessoalmente.<br><br>❤️"
+}
 ];
 
 let atual=0;
