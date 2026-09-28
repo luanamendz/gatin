@@ -69,11 +69,12 @@ body{
   <button id="btn" class="botao">Continuar</button>
 </div>
 
-<audio id="musicaIntro" loop>
-  <source src="intro.mp3" type="audio/mpeg">
+<audio id="intro" loop>
+  <source src="musicas/baby-im-yours.mp3" type="audio/mpeg">
 </audio>
-<audio id="musicaCarta" loop>
-  <source src="carta.mp3" type="audio/mpeg">
+
+<audio id="carta" loop>
+  <source src="musicas/japanese.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -92,7 +93,6 @@ const paginas=[
 
 /* ============================================================
    PARTE 1 — MEMES (auto, 5s cada, gifs grandes)
-   ordem atualizada conforme pedido
    ============================================================ */
 {
   parte:"meme", tipo:"single",
@@ -167,69 +167,69 @@ const paginas=[
 },
 
 /* ============================================================
-   PARTE 2 — CARTA (gatinhos, com texto)
+   PARTE 2 — CARTA (gatinhos, com texto) — sem título de página
    ============================================================ */
 {
   parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinho feliz.gif",
   cartaBg:"#4a4a4a", textoCor:"#fff", tituloCor:"#fff",
-  titulo:"Página 1",
+  titulo:"",
   texto:"oi meu amor,<br><br>quão brega eu seria escrevendo uma cartinha por aqui?<br><br>bastante né, mas eu gosto de ser brega contigo."
 },
 {
   parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinholaranjasem.gif",
   cartaBg:"#d8a36c", textoCor:"#3a2412", tituloCor:"#6a3c18",
-  titulo:"Página 2",
+  titulo:"",
   texto:"eu fico igual esse gatinho quando não te vejo, apesar da gente se ver com bastante frequência até...<br><br>muita gente fala que enjoa ver o namorado ou namorada todo dia, mas eu nunca enjoo de te ver, acho que até melhora meu dia."
 },
 {
   parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinhoacinzentado.gif",
   cartaBg:"#6f7f99", textoCor:"#fff", tituloCor:"#fff",
-  titulo:"Página 3",
+  titulo:"",
   texto:"eu gosto de ser bobinha contigo, e de te mostrar os vídeos ruins da minha fy, e de te mandar aleatoriamente um peito de frango no meio do dia, de ficar jogando ludo contigo...<br><br>e o jogo e tu me roubarem, já aceitei que é preconceito do jogo."
 },
 {
   parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinhorolando.gif",
   cartaBg:"#f3f3f3", textoCor:"#333", tituloCor:"#d85a9a",
-  titulo:"Página 4",
+  titulo:"",
   texto:"de ficar deitada na cama abraçada contigo...<br><br>apesar dos atrasos recorrentes serem errados (não aceito), eu gosto dos nossos momentos bobinhos."
 },
 {
   parte:"carta", tipo:"grupo", classe:"gatinho-grupo",
   gifs:["gifs/gatinhobfeliz.gif","gifs/gatinho 2.gif","gifs/gatinho 3.gif"],
   cartaBg:"#ffffff", textoCor:"#333", tituloCor:"#d85a9a",
-  titulo:"Página 5",
+  titulo:"",
   texto:"nunca te falei mas tu é a primeira pessoa pra quem escrevo, nunca fui de escrever pra ninguém, eu não escrevo nem aula da faculdade kakkakak<br><br>mas eu realmente gosto de escrever pra ti."
 },
 {
   parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinho apaixonado.gif",
   cartaBg:"#2d2323", textoCor:"#fff", tituloCor:"#ff8d8d",
-  titulo:"Página 6",
+  titulo:"",
   texto:"eu ainda fico nervosa e tímida contigo, acho isso engraçado porque a gente já está juntas a um tempinho e sempre parece a primeira vez q a gente conversa...<br><br>sou bobinha por ti, tipo eu to indo de boa de uber até tua casa, ai quando chega a hora de bater no portão eu já fico nervosa, que sapatona tímida é essa?<br><br>eu queria ser loba e tô sendo um gatinho judiado achado na rua."
 },
 {
   parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinho apaixonado.gif",
   cartaBg:"#412828", textoCor:"#fff", tituloCor:"#ffb2b2",
-  titulo:"Página 7",
+  titulo:"",
   texto:"e eu gosto de que a gente foi só nós mesmas uma com a outra...<br><br>não precisou ninguém nos arranjar, ou se conhecer no umbral das sapatões q é o tinder, nem pelo insta nem nada, só foi uma coisa ligando a outra, e a gente se conheceu."
 },
 {
   parte:"carta", tipo:"grupo", classe:"gatinho-grupo",
   gifs:["gifs/orange.gif","gifs/orangecat.gif","gifs/gatinho orange.gif"],
   cartaBg:"#c7c3c3", textoCor:"#333", tituloCor:"#cc6d00",
-  titulo:"Página 8",
+  titulo:"",
   texto:"colori meu mundinho altíssimo contigo nele, e eu gostei disso, meu famoso gatinho laranja formato grande, famoso lião...<br><br>gosto do teu jeito, e acho engraçado quando tu contas as histórias do teu dia, por mais que eu queira esfolar uns 2, pra pararem de dar em cima de ti, só posso desejar que eles tropecem e caiam dentro de um jazigo, sem morrer é claru."
 },
 {
   parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinho estrelado.gif",
   cartaBg:"#08366b", textoCor:"#fff", tituloCor:"#fff",
-  titulo:"❤️ Página 9",
+  titulo:"❤️",
   texto:"enfim.<br><br>não era só isso.<br><br>mas o resto eu te conto pessoalmente.<br><br>❤️"
 }
 ];
@@ -242,8 +242,8 @@ const area         = document.getElementById("areaGatos");
 const titulo       = document.getElementById("titulo");
 const texto        = document.getElementById("texto");
 const btn          = document.getElementById("btn");
-const musicaIntro  = document.getElementById("musicaIntro");
-const musicaCarta  = document.getElementById("musicaCarta");
+const musicaIntro  = document.getElementById("intro");
+const musicaCarta  = document.getElementById("carta-audio") || document.getElementById("carta");
 
 function limparTimer(){
   if(timerAuto){ clearTimeout(timerAuto); timerAuto = null; }
@@ -298,9 +298,17 @@ function carregarPagina(i){
       }</div>`;
     }
 
-    titulo.innerHTML   = p.titulo || "";
+    /* se titulo estiver vazio, esconde o h1 */
+    if(p.titulo && p.titulo.trim() !== ""){
+      titulo.innerHTML   = p.titulo;
+      titulo.style.color = p.tituloCor;
+      titulo.style.display = "";
+    } else {
+      titulo.innerHTML   = "";
+      titulo.style.display = "none";
+    }
+
     texto.innerHTML    = p.texto;
-    titulo.style.color = p.tituloCor;
     texto.style.color  = p.textoCor;
     carta.style.background = p.cartaBg;
 
