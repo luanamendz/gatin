@@ -59,6 +59,7 @@ body{
   transition:transform .2s;
 }
 .botao:hover{transform:scale(1.05)}
+.botao:disabled{opacity:.5;cursor:default}
 </style>
 </head>
 <body>
@@ -69,21 +70,29 @@ body{
   <button id="btn" class="botao">Continuar</button>
 </div>
 
-<!-- ÁUDIOS: apontando para a pasta "musicas/" com os nomes exatos do GitHub -->
+<!-- ÁUDIOS: apontando para a pasta "musicas/" -->
 <audio id="musicaIntro" loop preload="auto">
-  <source src="musicas/musica 1.mp3" type="audio/mpeg">
+  <source src="musicas/musica1.mp3" type="audio/mpeg">
 </audio>
 
 <audio id="musicaCarta" loop preload="auto">
-  <source src="musicas/musica 2.mp3" type="audio/mpeg">
+  <source src="musicas/musica2.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-const paginas=[
+/* ============================================================
+   TEMPOS DE CADA ETAPA (em milissegundos)
+   ============================================================ */
+const DURACAO_MEME       = 5000;   // 5s por meme
+const DURACAO_TRANSICAO  = 5000;   // 5s na tela "hora da leitura"
+const DURACAO_CARTA      = 12000;  // 12s por página da carta
 
 /* ============================================================
-   PARTE 1 — ABERTURA (gatinho branco, avisa que tem música)
+   PÁGINAS
    ============================================================ */
+const paginas=[
+
+/* ---------- ABERTURA (precisa de clique pra liberar áudio) ---------- */
 {
   parte:"intro", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinho branco.gif",
@@ -92,9 +101,7 @@ const paginas=[
   texto:"Esta página contém música.<br><br>Existem duas partes:<br>• uma introdução<br>• uma carta<br><br>Clique em continuar."
 },
 
-/* ============================================================
-   PARTE 1 — MEMES (auto, 5s cada, gifs grandes)
-   ============================================================ */
+/* ---------- MEMES (auto, 5s cada) ---------- */
 {
   parte:"meme", tipo:"single",
   gif:"gifs/kuzu420-headbanging-18618_512.gif",
@@ -156,9 +163,7 @@ const paginas=[
   texto:"quando é dia de ir te ver"
 },
 
-/* ============================================================
-   TRANSIÇÃO — "hora da leitura" (avisa troca de música)
-   ============================================================ */
+/* ---------- TRANSIÇÃO: "hora da leitura" ---------- */
 {
   parte:"transicao", tipo:"single",
   gif:"gifs/hora da leitura.gif",
@@ -167,9 +172,7 @@ const paginas=[
   texto:"agora vamos à parte importante<br><br>a música vai mudar 💌<br><br>continua quando quiser."
 },
 
-/* ============================================================
-   PARTE 2 — CARTA (gatinhos, com texto) — sem título de página
-   ============================================================ */
+/* ---------- CARTA (auto, 12s cada) ---------- */
 {
   parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinho feliz.gif",
@@ -237,6 +240,7 @@ const paginas=[
 
 let atual = 0;
 let timerAuto = null;
+let musicaTrocada = false;
 
 const carta        = document.getElementById("carta");
 const area         = document.getElementById("areaGatos");
@@ -248,6 +252,21 @@ const musicaCarta  = document.getElementById("musicaCarta");
 
 function limparTimer(){
   if(timerAuto){ clearTimeout(timerAuto); timerAuto = null; }
+}
+
+/* retorna o tempo que a página atual deve ficar na tela */
+function duracaoDaPagina(p){
+  if(p.parte === "meme")      return DURACAO_MEME;
+  if(p.parte === "transicao") return DURACAO_TRANSICAO;
+  if(p.parte === "carta")     return DURACAO_CARTA;
+  return 0; /* intro: espera o clique, não avança sozinha */
+}
+
+function proximaPagina(){
+  if(atual < paginas.length - 1){
+    atual++;
+    carregarPagina(atual);
+  }
 }
 
 function carregarPagina(i){
@@ -263,8 +282,8 @@ function carregarPagina(i){
   btn.style.display    = "";
   carta.classList.remove("carta-meme");
 
+  /* -------- MEME: gifs grandes, sem botão, auto 5s -------- */
   if(p.parte === "meme"){
-    /* -------- MEME: gifs grandes, sem botão, auto 5s -------- */
     carta.classList.add("carta-meme");
 
     if(p.tipo === "single"){
@@ -281,16 +300,8 @@ function carregarPagina(i){
     texto.style.color    = p.textoCor;
     carta.style.background = p.cartaBg;
 
-    /* avança automaticamente em 5s */
-    timerAuto = setTimeout(() => {
-      if(atual < paginas.length - 1){
-        atual++;
-        carregarPagina(atual);
-      }
-    }, 5000);
-
+  /* -------- INTRO / TRANSIÇÃO / CARTA: com botão + auto -------- */
   } else {
-    /* -------- INTRO / TRANSIÇÃO / CARTA: com botão -------- */
     if(p.tipo === "single"){
       area.innerHTML = `<img class="${p.classe}" src="${p.gif}" alt="">`;
     } else {
@@ -299,7 +310,6 @@ function carregarPagina(i){
       }</div>`;
     }
 
-    /* se titulo estiver vazio, esconde o h1 */
     if(p.titulo && p.titulo.trim() !== ""){
       titulo.innerHTML   = p.titulo;
       titulo.style.color = p.tituloCor;
@@ -313,32 +323,18 @@ function carregarPagina(i){
     texto.style.color  = p.textoCor;
     carta.style.background = p.cartaBg;
 
-    btn.textContent = (i === paginas.length - 1) ? "❤️ Fim" : "Continuar";
-  }
-}
-
-carregarPagina(0);
-
-btn.onclick = () => {
-  const p = paginas[atual];
-
-  /* primeiro clique: inicia a música da intro */
-  if(atual === 0){
-    musicaIntro.volume = 0.5;
-    musicaIntro.play().catch((e) => {
-      console.warn("Não consegui tocar a música da intro:", e);
-    });
+    /* na intro o botão começa a música; nas outras, avança */
+    if(i === 0){
+      btn.textContent = "Continuar";
+    } else if(i === paginas.length - 1){
+      btn.textContent = "❤️ Fim";
+    } else {
+      btn.textContent = "Continuar →";
+    }
   }
 
-  /* última página: congela */
-  if(atual === paginas.length - 1){
-    btn.textContent = "❤️ Fim";
-    return;
-  }
-
-  /* transição ("hora da leitura"):
-     para a intro e inicia a música da carta */
-  if(p.parte === "transicao"){
+  /* -------- TROCA DE MÚSICA: ao entrar na "hora da leitura" -------- */
+  if(p.parte === "transicao" && !musicaTrocada){
     musicaIntro.pause();
     musicaIntro.currentTime = 0;
 
@@ -347,10 +343,39 @@ btn.onclick = () => {
     musicaCarta.play().catch((e) => {
       console.warn("Não consegui tocar a música da carta:", e);
     });
+
+    musicaTrocada = true;
   }
 
-  atual++;
-  carregarPagina(atual);
+  /* -------- AUTO-AVANÇO (exceto na intro e na última página) -------- */
+  const dur = duracaoDaPagina(p);
+  if(dur > 0 && i < paginas.length - 1){
+    timerAuto = setTimeout(proximaPagina, dur);
+  }
+}
+
+carregarPagina(0);
+
+/* -------- CLIQUE NO BOTÃO (funciona como "pular etapa") -------- */
+btn.onclick = () => {
+  /* primeira tela: libera o áudio e começa */
+  if(atual === 0){
+    musicaIntro.volume = 0.5;
+    musicaIntro.play().catch((e) => {
+      console.warn("Não consegui tocar a música da intro:", e);
+    });
+    proximaPagina();
+    return;
+  }
+
+  /* última tela: só congela */
+  if(atual === paginas.length - 1){
+    btn.textContent = "❤️ Fim";
+    return;
+  }
+
+  /* qualquer outra: avança manualmente */
+  proximaPagina();
 };
 </script>
 </body>
