@@ -7,23 +7,31 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-min-height:100vh;display:flex;justify-content:center;align-items:center;
-padding:20px;background:#f7e6ef;font-family:Georgia,serif;
+  min-height:100vh;display:flex;justify-content:center;align-items:center;
+  padding:20px;background:#f7e6ef;font-family:Georgia,serif;
 }
 .carta{
-width:min(95vw,900px);min-height:750px;border-radius:35px;padding:40px;
-display:flex;flex-direction:column;align-items:center;text-align:center;
-box-shadow:0 20px 60px rgba(0,0,0,.15);transition:.6s;
+  width:min(95vw,900px);min-height:750px;border-radius:35px;padding:40px;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.15);transition:.6s;
 }
-.gatinho{width:min(280px,70vw);image-rendering:pixelated}
-.titulo{font-size:clamp(2rem,5vw,4rem);margin:20px 0}
-.texto{font-size:clamp(1.1rem,2vw,1.4rem);line-height:1.8;max-width:700px}
+.titulo{font-size:clamp(1.8rem,4vw,3rem);margin:20px 0}
+.texto{font-size:clamp(1.1rem,2vw,1.4rem);line-height:1.8;max-width:700px;margin-top:20px}
 .botao{
-margin-top:auto;border:none;background:#d85a9a;color:#fff;
-padding:15px 40px;border-radius:999px;cursor:pointer;font-size:1.1rem;
+  margin-top:auto;border:none;background:#d85a9a;color:#fff;
+  padding:15px 40px;border-radius:999px;cursor:pointer;font-size:1.1rem;
+  transition:transform .2s;
 }
-.grupo{display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
-.grupo img{width:180px;image-rendering:pixelated}
+.botao:hover{transform:scale(1.05)}
+
+/* gatinhos da carta */
+.gatinho{width:min(280px,70vw);image-rendering:pixelated}
+.grupo{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;align-items:center}
+.grupo.gatinho-grupo img{width:180px;image-rendering:pixelated}
+
+/* memes da introdução */
+.meme{width:min(420px,75vw);border-radius:20px}
+.grupo.meme-grupo img{width:min(260px,40vw);border-radius:20px}
 </style>
 </head>
 <body>
@@ -34,99 +42,153 @@ padding:15px 40px;border-radius:999px;cursor:pointer;font-size:1.1rem;
 <button id="btn" class="botao">Continuar</button>
 </div>
 
-<audio id="musica" loop>
-<source src="musica.mp3" type="audio/mpeg">
+<audio id="musicaIntro" loop>
+  <source src="intro.mp3" type="audio/mpeg">
+</audio>
+<audio id="musicaCarta" loop>
+  <source src="carta.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 const paginas=[
+/* ===================== PARTE 1 — INTRODUÇÃO (memes) ===================== */
 {
-  tipo:"single",
+  parte:"intro", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinho branco.gif",
-  cartaBg:"#d9e8ff",
-  textoCor:"#2d4059",
-  tituloCor:"#4d6a91",
-  titulo:"💌 Uma Carta",
-  texto:"Esta página contém música.<br><br>Clique em continuar para começar."
+  cartaBg:"#d9e8ff", textoCor:"#2d4059", tituloCor:"#4d6a91",
+  titulo:"💌",
+  texto:"Esta página contém música.<br><br>Existem duas partes:<br>• uma introdução<br>• uma carta<br><br>Clique em continuar."
 },
 {
-  tipo:"single",
+  parte:"meme", tipo:"grupo", classe:"meme-grupo",
+  gifs:["gifs/carregando.gif","gifs/pergunta.gif"],
+  cartaBg:"#fdf6e3", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  texto:"quando tu me pergunta algo"
+},
+{
+  parte:"meme", tipo:"grupo", classe:"meme-grupo",
+  gifs:["gifs/jutim.gif","gifs/eu dia de ver.gif"],
+  cartaBg:"#e8f0d9", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  texto:"quando é dia de ir te ver"
+},
+{
+  parte:"meme", tipo:"grupo", classe:"meme-grupo",
+  gifs:["gifs/ver foto.gif","gifs/ver ela.gif"],
+  cartaBg:"#fce4ec", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  texto:"eu quando vejo foto tua"
+},
+{
+  parte:"meme", tipo:"grupo", classe:"meme-grupo",
+  gifs:["gifs/chama.gif","gifs/sapin.gif"],
+  cartaBg:"#e3f2fd", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  texto:"quando tu me chama pra dormir contigo"
+},
+{
+  parte:"meme", tipo:"grupo", classe:"meme-grupo",
+  gifs:["gifs/sapin.gif","gifs/passarinho.gif"],
+  cartaBg:"#fff3e0", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  texto:"eu dia de mandar um presente de aniversário"
+},
+{
+  parte:"meme", tipo:"single", classe:"meme",
+  gif:"gifs/dancing.gif",
+  cartaBg:"#f3e5f5", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  texto:"e eu assim pra te conquistar"
+},
+{
+  parte:"meme", tipo:"single", classe:"meme",
+  gif:"gifs/pikachu.gif",
+  cartaBg:"#fff9c4", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  texto:"deu certo!"
+},
+{
+  parte:"meme", tipo:"grupo", classe:"meme-grupo",
+  gifs:["gifs/quando quer.gif","gifs/feios.gif"],
+  cartaBg:"#ffebee", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  texto:"quando algum feio dá em cima de ti"
+},
+{
+  parte:"meme", tipo:"single", classe:"meme",
+  gif:"gifs/lançarfeit.gif",
+  cartaBg:"#e8eaf6", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  texto:"eu depois de saber disso indo lançar desejos pra eles tropeçarem nos jazigos"
+},
+{
+  parte:"meme", tipo:"single", classe:"meme",
+  gif:"gifs/kuzu420-headbanging-18618_512.gif",
+  cartaBg:"#e0f7fa", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  texto:"todos dançando no aniversário e bebendo"
+},
+/* --- transição para a parte 2 --- */
+{
+  parte:"transicao", tipo:"single", classe:"meme",
+  gif:"gifs/hora da leitura.gif",
+  cartaBg:"#2b2b2b", textoCor:"#ffffff", tituloCor:"#ffffff",
+  titulo:"📖",
+  texto:"agora vamos à parte importante<br><br>a música vai mudar 💌"
+},
+
+/* ===================== PARTE 2 — CARTA (gatinhos) ===================== */
+{
+  parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinho feliz.gif",
-  cartaBg:"#4a4a4a",
-  textoCor:"#fff",
-  tituloCor:"#fff",
+  cartaBg:"#4a4a4a", textoCor:"#fff", tituloCor:"#fff",
   titulo:"Página 1",
   texto:"oi meu amor,<br><br>quão brega eu seria escrevendo uma cartinha por aqui?<br><br>bastante né, mas eu gosto de ser brega contigo."
 },
 {
-  tipo:"single",
+  parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinholaranjasem.gif",
-  cartaBg:"#d8a36c",
-  textoCor:"#3a2412",
-  tituloCor:"#6a3c18",
+  cartaBg:"#d8a36c", textoCor:"#3a2412", tituloCor:"#6a3c18",
   titulo:"Página 2",
   texto:"eu fico igual esse gatinho quando não te vejo, apesar da gente se ver com bastante frequência até...<br><br>muita gente fala que enjoa ver o namorado ou namorada todo dia, mas eu nunca enjoo de te ver, acho que até melhora meu dia."
 },
 {
-  tipo:"single",
+  parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinhoacinzentado.gif",
-  cartaBg:"#6f7f99",
-  textoCor:"#fff",
-  tituloCor:"#fff",
+  cartaBg:"#6f7f99", textoCor:"#fff", tituloCor:"#fff",
   titulo:"Página 3",
   texto:"eu gosto de ser bobinha contigo, e de te mostrar os vídeos ruins da minha fy, e de te mandar aleatoriamente um peito de frango no meio do dia, de ficar jogando ludo contigo...<br><br>e o jogo e tu me roubarem, já aceitei que é preconceito do jogo."
 },
 {
-  tipo:"single",
+  parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinhorolando.gif",
-  cartaBg:"#f3f3f3",
-  textoCor:"#333",
-  tituloCor:"#d85a9a",
+  cartaBg:"#f3f3f3", textoCor:"#333", tituloCor:"#d85a9a",
   titulo:"Página 4",
   texto:"de ficar deitada na cama abraçada contigo...<br><br>apesar dos atrasos recorrentes serem errados (não aceito), eu gosto dos nossos momentos bobinhos."
 },
 {
-  tipo:"grupo",
+  parte:"carta", tipo:"grupo", classe:"gatinho-grupo",
   gifs:["gifs/gatinhobfeliz.gif","gifs/gatinho 2.gif","gifs/gatinho 3.gif"],
-  cartaBg:"#ffffff",
-  textoCor:"#333",
-  tituloCor:"#d85a9a",
+  cartaBg:"#ffffff", textoCor:"#333", tituloCor:"#d85a9a",
   titulo:"Página 5",
   texto:"nunca te falei mas tu é a primeira pessoa pra quem escrevo, nunca fui de escrever pra ninguém, eu não escrevo nem aula da faculdade kakkakak<br><br>mas eu realmente gosto de escrever pra ti."
 },
 {
-  tipo:"single",
+  parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinho apaixonado.gif",
-  cartaBg:"#2d2323",
-  textoCor:"#fff",
-  tituloCor:"#ff8d8d",
+  cartaBg:"#2d2323", textoCor:"#fff", tituloCor:"#ff8d8d",
   titulo:"Página 6",
   texto:"eu ainda fico nervosa e tímida contigo, acho isso engraçado porque a gente já está juntas a um tempinho e sempre parece a primeira vez q a gente conversa...<br><br>sou bobinha por ti, tipo eu to indo de boa de uber até tua casa, ai quando chega a hora de bater no portão eu já fico nervosa, que sapatona tímida é essa?<br><br>eu queria ser loba e tô sendo um gatinho judiado achado na rua."
 },
 {
-  tipo:"single",
+  parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinho apaixonado.gif",
-  cartaBg:"#412828",
-  textoCor:"#fff",
-  tituloCor:"#ffb2b2",
+  cartaBg:"#412828", textoCor:"#fff", tituloCor:"#ffb2b2",
   titulo:"Página 7",
   texto:"e eu gosto de que a gente foi só nós mesmas uma com a outra...<br><br>não precisou ninguém nos arranjar, ou se conhecer no umbral das sapatões q é o tinder, nem pelo insta nem nada, só foi uma coisa ligando a outra, e a gente se conheceu."
 },
 {
-  tipo:"grupo",
+  parte:"carta", tipo:"grupo", classe:"gatinho-grupo",
   gifs:["gifs/orange.gif","gifs/orangecat.gif","gifs/gatinho orange.gif"],
-  cartaBg:"#c7c3c3",
-  textoCor:"#333",
-  tituloCor:"#cc6d00",
+  cartaBg:"#c7c3c3", textoCor:"#333", tituloCor:"#cc6d00",
   titulo:"Página 8",
   texto:"colori meu mundinho altíssimo contigo nele, e eu gostei disso, meu famoso gatinho laranja formato grande, famoso lião...<br><br>gosto do teu jeito, e acho engraçado quando tu contas as histórias do teu dia, por mais que eu queira esfolar uns 2, pra pararem de dar em cima de ti, só posso desejar que eles tropecem e caiam dentro de um jazigo, sem morrer é claru."
 },
 {
-  tipo:"single",
+  parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinho estrelado.gif",
-  cartaBg:"#08366b",
-  textoCor:"#fff",
-  tituloCor:"#fff",
+  cartaBg:"#08366b", textoCor:"#fff", tituloCor:"#fff",
   titulo:"❤️ Página 9",
   texto:"enfim.<br><br>não era só isso.<br><br>mas o resto eu te conto pessoalmente.<br><br>❤️"
 }
@@ -134,30 +196,61 @@ const paginas=[
 
 let atual=0;
 
+const carta       = document.getElementById("carta");
+const area        = document.getElementById("areaGatos");
+const titulo      = document.getElementById("titulo");
+const texto       = document.getElementById("texto");
+const btn         = document.getElementById("btn");
+const musicaIntro = document.getElementById("musicaIntro");
+const musicaCarta = document.getElementById("musicaCarta");
+
 function carregarPagina(i){
- const p=paginas[i];
- const area=document.getElementById("areaGatos");
+  const p = paginas[i];
 
- if(p.tipo==="single"){
-   area.innerHTML=`<img class="gatinho" src="${p.gif}">`;
- } else {
-   area.innerHTML=`<div class="grupo">${p.gifs.map(g=>`<img src="${g}">`).join("")}</div>`;
- }
+  if(p.tipo === "single"){
+    area.innerHTML = `<img class="${p.classe}" src="${p.gif}" alt="">`;
+  } else {
+    area.innerHTML = `<div class="grupo ${p.classe}">${
+      p.gifs.map(g => `<img class="${p.classe === "gatinho-grupo" ? "gatinho" : "meme"}" src="${g}" alt="">`).join("")
+    }</div>`;
+  }
 
- carta.style.background=p.cartaBg;
- titulo.innerHTML=p.titulo;
- texto.innerHTML=p.texto;
- titulo.style.color=p.tituloCor;
- texto.style.color=p.textoCor;
+  carta.style.background = p.cartaBg;
+  titulo.innerHTML       = p.titulo || "";
+  texto.innerHTML        = p.texto;
+  titulo.style.color     = p.tituloCor;
+  texto.style.color      = p.textoCor;
+
+  btn.textContent = (i === paginas.length - 1) ? "❤️ Fim" : "Continuar";
 }
 
 carregarPagina(0);
 
-btn.onclick=()=>{
- if(atual===0){musica.play().catch(()=>{});}
- if(atual<paginas.length-1){atual++;carregarPagina(atual);}
- else{btn.textContent="❤️ Fim";}
-}
+btn.onclick = () => {
+  const paginaAtual = paginas[atual];
+
+  /* primeiro clique: inicia a música da intro */
+  if(atual === 0){
+    musicaIntro.play().catch(()=>{});
+  }
+
+  /* última página: congela */
+  if(atual === paginas.length - 1){
+    btn.textContent = "❤️ Fim";
+    return;
+  }
+
+  /* transição: para a intro e inicia a música da carta */
+  if(paginaAtual.parte === "transicao"){
+    musicaIntro.pause();
+    musicaIntro.currentTime = 0;
+    musicaCarta.currentTime = 0;
+    musicaCarta.play().catch(()=>{});
+  }
+
+  atual++;
+  carregarPagina(atual);
+};
 </script>
 </body>
 </html>
