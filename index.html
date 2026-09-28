@@ -83,7 +83,7 @@ body{
 /* ============================================================
    TEMPOS DE CADA ETAPA (em milissegundos)
    ============================================================ */
-const DURACAO_MEME       = 5000;   // 5s por meme
+const DURACAO_MEME       = 7500;   // 7,5s por meme
 const DURACAO_TRANSICAO  = 5000;   // 5s na tela "hora da leitura"
 const DURACAO_CARTA      = 12000;  // 12s por página da carta
 
@@ -101,7 +101,7 @@ const paginas=[
   texto:"Esta página contém música.<br><br>Existem duas partes:<br>• uma introdução<br>• uma carta<br><br>Clique em continuar."
 },
 
-/* ---------- MEMES (auto, 5s cada) ---------- */
+/* ---------- MEMES (auto, 7,5s cada) ---------- */
 {
   parte:"meme", tipo:"single",
   gif:"gifs/kuzu420-headbanging-18618_512.gif",
@@ -282,7 +282,7 @@ function carregarPagina(i){
   btn.style.display    = "";
   carta.classList.remove("carta-meme");
 
-  /* -------- MEME: gifs grandes, sem botão, auto 5s -------- */
+  /* -------- MEME: gifs grandes, sem botão, auto 7,5s -------- */
   if(p.parte === "meme"){
     carta.classList.add("carta-meme");
 
