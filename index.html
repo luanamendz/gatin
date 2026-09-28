@@ -3,154 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>💌 Uma Carta</title>
-
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
+*{margin:0;padding:0;box-sizing:border-box}
 body{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-    background:#f7e6ef;
-    font-family:Georgia, serif;
+min-height:100vh;display:flex;justify-content:center;align-items:center;
+padding:20px;background:#f7e6ef;font-family:Georgia,serif;
 }
-
 .carta{
-
-    width:min(95vw,900px);
-
-    min-height:750px;
-
-    border-radius:35px;
-
-    padding:40px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    text-align:center;
-
-    transition:.8s;
-
-    box-shadow:
-    0 20px 60px rgba(0,0,0,.15);
-
+width:min(95vw,900px);min-height:750px;border-radius:35px;padding:40px;
+display:flex;flex-direction:column;align-items:center;text-align:center;
+box-shadow:0 20px 60px rgba(0,0,0,.15);transition:.6s;
 }
-
-.gatinho{
-
-    width:min(280px,70vw);
-
-    margin-bottom:25px;
-
-    image-rendering:pixelated;
-
-}
-
-.titulo{
-
-    font-size:clamp(2rem,5vw,4rem);
-
-    margin-bottom:30px;
-
-    transition:.8s;
-
-}
-
-.texto{
-
-    font-size:clamp(1.1rem,2vw,1.4rem);
-
-    line-height:1.8;
-
-    max-width:650px;
-
-    transition:.8s;
-
-}
-
+.gatinho{width:min(280px,70vw);image-rendering:pixelated}
+.titulo{font-size:clamp(2rem,5vw,4rem);margin:20px 0}
+.texto{font-size:clamp(1.1rem,2vw,1.4rem);line-height:1.8;max-width:700px}
 .botao{
-
-    margin-top:auto;
-
-    border:none;
-
-    background:#d85a9a;
-
-    color:white;
-
-    padding:15px 40px;
-
-    border-radius:999px;
-
-    cursor:pointer;
-
-    font-size:1.1rem;
-
-    transition:.3s;
-
+margin-top:auto;border:none;background:#d85a9a;color:#fff;
+padding:15px 40px;border-radius:999px;cursor:pointer;font-size:1.1rem;
 }
-
-.botao:hover{
-
-    transform:scale(1.05);
-
-}
-
-@media(max-width:700px){
-
-.carta{
-    min-height:90vh;
-    padding:25px;
-}
-
-.gatinho{
-    width:55vw;
-}
-
-}
-
+.grupo{display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
+.grupo img{width:180px;image-rendering:pixelated}
 </style>
 </head>
 <body>
-
 <div id="carta" class="carta">
-
-<img
-id="gatinho"
-class="gatinho"
-src="gifs/gatinho branco.gif">
-
-<h1 id="titulo" class="titulo">
-💌 Uma Carta
-</h1>
-
-<div id="texto" class="texto">
-
-Esta página contém música.
-
-<br><br>
-
-Clique em continuar para começar.
-
-</div>
-
-<button id="btn" class="botao">
-Continuar
-</button>
-
+<div id="areaGatos"></div>
+<h1 id="titulo" class="titulo"></h1>
+<div id="texto" class="texto"></div>
+<button id="btn" class="botao">Continuar</button>
 </div>
 
 <audio id="musica" loop>
@@ -158,140 +39,45 @@ Continuar
 </audio>
 
 <script>
-
-const paginas = [
-
-{
-gif:"gifs/gatinho branco.gif",
-cartaBg:"#d9e8ff",
-textoCor:"#2d4059",
-tituloCor:"#4d6a91",
-titulo:"💌 Uma Carta",
-texto:"Esta página contém música.<br><br>Clique em continuar para começar."
-},
-
-{
-gif:"gifs/gatinho feliz.gif",
-cartaBg:"#4a4a4a",
-textoCor:"#ffffff",
-tituloCor:"#ffffff",
-titulo:"Página 1",
-texto:"Texto da primeira página."
-},
-
-{
-gif:"gifs/gatinholaranjasem.gif",
-cartaBg:"#d8a36c",
-textoCor:"#3a2412",
-tituloCor:"#6a3c18",
-titulo:"Página 2",
-texto:"Texto da segunda página."
-},
-
-{
-gif:"gifs/gatinhoacinzentado.gif",
-cartaBg:"#6f7f99",
-textoCor:"#ffffff",
-tituloCor:"#ffffff",
-titulo:"Página 3",
-texto:"Texto da terceira página."
-},
-
-{
-gif:"gifs/gatinhorolando.gif",
-cartaBg:"#f3f3f3",
-textoCor:"#333333",
-tituloCor:"#d85a9a",
-titulo:"Página 4",
-texto:"Texto da quarta página."
-},
-
-{
-gif:"gifs/gatinhobfeliz.gif",
-cartaBg:"#ffffff",
-textoCor:"#333333",
-tituloCor:"#d85a9a",
-titulo:"Página 5",
-texto:"Texto da quinta página."
-},
-
-{
-gif:"gifs/gatinho apaixonado.gif",
-cartaBg:"#2d2323",
-textoCor:"#ffffff",
-tituloCor:"#ff8d8d",
-titulo:"Página 6",
-texto:"Texto da sexta página."
-},
-
-{
-gif:"gifs/gatinho estrelado.gif",
-cartaBg:"#08366b",
-textoCor:"#ffffff",
-tituloCor:"#ffffff",
-titulo:"❤️ Final",
-texto:"Aqui ficará a última parte da carta."
-}
-
+const paginas=[
+{tipo:"single",gif:"gifs/gatinho branco.gif",cartaBg:"#d9e8ff",textoCor:"#2d4059",tituloCor:"#4d6a91",titulo:"💌 Uma Carta",texto:"Esta página contém música.<br><br>Clique em continuar para começar."},
+{tipo:"single",gif:"gifs/gatinho feliz.gif",cartaBg:"#4a4a4a",textoCor:"#fff",tituloCor:"#fff",titulo:"Página 1",texto:"oi meu amor,<br><br>quão brega eu seria escrevendo uma cartinha por aqui?<br><br>bastante né, mas eu gosto de ser brega contigo."},
+{tipo:"single",gif:"gifs/gatinholaranjasem.gif",cartaBg:"#d8a36c",textoCor:"#3a2412",tituloCor:"#6a3c18",titulo:"Página 2",texto:"eu fico igual esse gatinho quando não te vejo...<br><br>acho que até melhora meu dia."},
+{tipo:"single",gif:"gifs/gatinhoacinzentado.gif",cartaBg:"#6f7f99",textoCor:"#fff",tituloCor:"#fff",titulo:"Página 3",texto:"eu gosto de ser bobinha contigo, mostrar vídeos ruins da minha fy, mandar um peito de frango aleatório e jogar ludo contigo."},
+{tipo:"single",gif:"gifs/gatinhorolando.gif",cartaBg:"#f3f3f3",textoCor:"#333",tituloCor:"#d85a9a",titulo:"Página 4",texto:"de ficar deitada na cama abraçada contigo... eu gosto dos nossos momentos bobinhos."},
+{tipo:"grupo",gifs:["gifs/gatinhobfeliz.gif","gifs/gatinho 2.gif","gifs/gatinho 3.gif"],cartaBg:"#ffffff",textoCor:"#333",tituloCor:"#d85a9a",titulo:"Página 5",texto:"nunca te falei mas tu é a primeira pessoa pra quem escrevo... mas eu realmente gosto de escrever pra ti."},
+{tipo:"single",gif:"gifs/gatinho apaixonado.gif",cartaBg:"#2d2323",textoCor:"#fff",tituloCor:"#ff8d8d",titulo:"Página 6",texto:"eu ainda fico nervosa e tímida contigo... eu queria ser loba e tô sendo um gatinho judiado achado na rua."},
+{tipo:"single",gif:"gifs/gatinho apaixonado.gif",cartaBg:"#412828",textoCor:"#fff",tituloCor:"#ffb2b2",titulo:"Página 7",texto:"e eu gosto de que a gente foi só nós mesmas uma com a outra..."},
+{tipo:"grupo",gifs:["gifs/orange.gif","gifs/orangecat.gif","gifs/gatinho orange.gif"],cartaBg:"#c7c3c3",textoCor:"#333",tituloCor:"#cc6d00",titulo:"Página 8",texto:"colori meu mundinho altíssimo contigo nele... sem morrer é claru."},
+{tipo:"single",gif:"gifs/gatinho estrelado.gif",cartaBg:"#08366b",textoCor:"#fff",tituloCor:"#fff",titulo:"❤️ Página 9",texto:"enfim.<br><br>não era só isso.<br><br>mas o resto eu te conto pessoalmente.<br><br>❤️"}
 ];
 
-let atual = 0;
+let atual=0;
 
 function carregarPagina(i){
+ const p=paginas[i];
+ const area=document.getElementById("areaGatos");
 
-const p = paginas[i];
+ if(p.tipo==="single"){
+   area.innerHTML=`<img class="gatinho" src="${p.gif}">`;
+ } else {
+   area.innerHTML=`<div class="grupo">${p.gifs.map(g=>`<img src="${g}">`).join("")}</div>`;
+ }
 
-document.getElementById("gatinho").src =
-p.gif;
-
-document.getElementById("titulo").innerHTML =
-p.titulo;
-
-document.getElementById("texto").innerHTML =
-p.texto;
-
-document.getElementById("carta").style.background =
-p.cartaBg;
-
-document.getElementById("titulo").style.color =
-p.tituloCor;
-
-document.getElementById("texto").style.color =
-p.textoCor;
-
+ carta.style.background=p.cartaBg;
+ titulo.innerHTML=p.titulo;
+ texto.innerHTML=p.texto;
+ titulo.style.color=p.tituloCor;
+ texto.style.color=p.textoCor;
 }
 
 carregarPagina(0);
 
-document
-.getElementById("btn")
-.addEventListener("click",()=>{
-
-if(atual===0){
-
-document
-.getElementById("musica")
-.play()
-.catch(()=>{});
-
+btn.onclick=()=>{
+ if(atual===0){musica.play().catch(()=>{});}
+ if(atual<paginas.length-1){atual++;carregarPagina(atual);}
+ else{btn.textContent="❤️ Fim";}
 }
-
-if(atual < paginas.length-1){
-
-atual++;
-
-carregarPagina(atual);
-
-}else{
-
-document.getElementById("btn").innerHTML =
-"❤️ Fim";
-
-}
-
-});
-
 </script>
-
 </body>
 </html>
