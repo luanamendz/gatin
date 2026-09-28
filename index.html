@@ -14,7 +14,43 @@ body{
   width:min(95vw,900px);min-height:750px;border-radius:35px;padding:40px;
   display:flex;flex-direction:column;align-items:center;text-align:center;
   box-shadow:0 20px 60px rgba(0,0,0,.15);transition:.6s;
+  justify-content:flex-start;
 }
+
+/* -------- Memes (parte 1) -------- */
+.carta.carta-meme{
+  justify-content:center;
+  padding:30px 20px;
+}
+.meme-single{
+  width:min(560px,85vw);
+  max-height:55vh;
+  object-fit:contain;
+  border-radius:24px;
+}
+.meme-grupo{
+  display:flex;gap:24px;flex-wrap:wrap;
+  justify-content:center;align-items:center;
+}
+.meme-grupo img{
+  width:min(340px,42vw);
+  max-height:45vh;
+  object-fit:contain;
+  border-radius:24px;
+}
+.meme-frase{
+  font-size:clamp(1.4rem,3vw,2rem);
+  font-weight:bold;
+  margin-top:32px;
+  line-height:1.5;
+  max-width:800px;
+}
+
+/* -------- Carta (parte 2) -------- */
+.gatinho{width:min(280px,70vw);image-rendering:pixelated}
+.grupo{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;align-items:center}
+.grupo.gatinho-grupo img{width:180px;image-rendering:pixelated}
+
 .titulo{font-size:clamp(1.8rem,4vw,3rem);margin:20px 0}
 .texto{font-size:clamp(1.1rem,2vw,1.4rem);line-height:1.8;max-width:700px;margin-top:20px}
 .botao{
@@ -23,23 +59,14 @@ body{
   transition:transform .2s;
 }
 .botao:hover{transform:scale(1.05)}
-
-/* gatinhos da carta */
-.gatinho{width:min(280px,70vw);image-rendering:pixelated}
-.grupo{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;align-items:center}
-.grupo.gatinho-grupo img{width:180px;image-rendering:pixelated}
-
-/* memes da introdução */
-.meme{width:min(420px,75vw);border-radius:20px}
-.grupo.meme-grupo img{width:min(260px,40vw);border-radius:20px}
 </style>
 </head>
 <body>
 <div id="carta" class="carta">
-<div id="areaGatos"></div>
-<h1 id="titulo" class="titulo"></h1>
-<div id="texto" class="texto"></div>
-<button id="btn" class="botao">Continuar</button>
+  <div id="areaGatos"></div>
+  <h1 id="titulo" class="titulo"></h1>
+  <div id="texto" class="texto"></div>
+  <button id="btn" class="botao">Continuar</button>
 </div>
 
 <audio id="musicaIntro" loop>
@@ -51,7 +78,10 @@ body{
 
 <script>
 const paginas=[
-/* ===================== PARTE 1 — INTRODUÇÃO (memes) ===================== */
+
+/* ============================================================
+   PARTE 1 — ABERTURA (gatinho branco, avisa que tem música)
+   ============================================================ */
 {
   parte:"intro", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinho branco.gif",
@@ -59,76 +89,85 @@ const paginas=[
   titulo:"💌",
   texto:"Esta página contém música.<br><br>Existem duas partes:<br>• uma introdução<br>• uma carta<br><br>Clique em continuar."
 },
+
+/* ============================================================
+   PARTE 1 — MEMES (auto, 10s cada, gifs grandes)
+   ============================================================ */
 {
-  parte:"meme", tipo:"grupo", classe:"meme-grupo",
+  parte:"meme", tipo:"grupo",
   gifs:["gifs/carregando.gif","gifs/pergunta.gif"],
-  cartaBg:"#fdf6e3", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  cartaBg:"#fdf6e3", textoCor:"#3a3a3a",
   texto:"quando tu me pergunta algo"
 },
 {
-  parte:"meme", tipo:"grupo", classe:"meme-grupo",
+  parte:"meme", tipo:"grupo",
   gifs:["gifs/jutim.gif","gifs/eu dia de ver.gif"],
-  cartaBg:"#e8f0d9", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  cartaBg:"#e8f0d9", textoCor:"#3a3a3a",
   texto:"quando é dia de ir te ver"
 },
 {
-  parte:"meme", tipo:"grupo", classe:"meme-grupo",
+  parte:"meme", tipo:"grupo",
   gifs:["gifs/ver foto.gif","gifs/ver ela.gif"],
-  cartaBg:"#fce4ec", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  cartaBg:"#fce4ec", textoCor:"#3a3a3a",
   texto:"eu quando vejo foto tua"
 },
 {
-  parte:"meme", tipo:"grupo", classe:"meme-grupo",
+  parte:"meme", tipo:"grupo",
   gifs:["gifs/chama.gif","gifs/sapin.gif"],
-  cartaBg:"#e3f2fd", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  cartaBg:"#e3f2fd", textoCor:"#3a3a3a",
   texto:"quando tu me chama pra dormir contigo"
 },
 {
-  parte:"meme", tipo:"grupo", classe:"meme-grupo",
+  parte:"meme", tipo:"grupo",
   gifs:["gifs/sapin.gif","gifs/passarinho.gif"],
-  cartaBg:"#fff3e0", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  cartaBg:"#fff3e0", textoCor:"#3a3a3a",
   texto:"eu dia de mandar um presente de aniversário"
 },
 {
-  parte:"meme", tipo:"single", classe:"meme",
+  parte:"meme", tipo:"single",
   gif:"gifs/dancing.gif",
-  cartaBg:"#f3e5f5", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  cartaBg:"#f3e5f5", textoCor:"#3a3a3a",
   texto:"e eu assim pra te conquistar"
 },
 {
-  parte:"meme", tipo:"single", classe:"meme",
+  parte:"meme", tipo:"single",
   gif:"gifs/pikachu.gif",
-  cartaBg:"#fff9c4", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  cartaBg:"#fff9c4", textoCor:"#3a3a3a",
   texto:"deu certo!"
 },
 {
-  parte:"meme", tipo:"grupo", classe:"meme-grupo",
+  parte:"meme", tipo:"grupo",
   gifs:["gifs/quando quer.gif","gifs/feios.gif"],
-  cartaBg:"#ffebee", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  cartaBg:"#ffebee", textoCor:"#3a3a3a",
   texto:"quando algum feio dá em cima de ti"
 },
 {
-  parte:"meme", tipo:"single", classe:"meme",
+  parte:"meme", tipo:"single",
   gif:"gifs/lançarfeit.gif",
-  cartaBg:"#e8eaf6", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  cartaBg:"#e8eaf6", textoCor:"#3a3a3a",
   texto:"eu depois de saber disso indo lançar desejos pra eles tropeçarem nos jazigos"
 },
 {
-  parte:"meme", tipo:"single", classe:"meme",
+  parte:"meme", tipo:"single",
   gif:"gifs/kuzu420-headbanging-18618_512.gif",
-  cartaBg:"#e0f7fa", textoCor:"#3a3a3a", tituloCor:"#3a3a3a",
+  cartaBg:"#e0f7fa", textoCor:"#3a3a3a",
   texto:"todos dançando no aniversário e bebendo"
 },
-/* --- transição para a parte 2 --- */
+
+/* ============================================================
+   TRANSIÇÃO — "hora da leitura" (avisa troca de música)
+   ============================================================ */
 {
-  parte:"transicao", tipo:"single", classe:"meme",
+  parte:"transicao", tipo:"single",
   gif:"gifs/hora da leitura.gif",
   cartaBg:"#2b2b2b", textoCor:"#ffffff", tituloCor:"#ffffff",
   titulo:"📖",
-  texto:"agora vamos à parte importante<br><br>a música vai mudar 💌"
+  texto:"agora vamos à parte importante<br><br>a música vai mudar 💌<br><br>continua quando quiser."
 },
 
-/* ===================== PARTE 2 — CARTA (gatinhos) ===================== */
+/* ============================================================
+   PARTE 2 — CARTA (gatinhos, com texto)
+   ============================================================ */
 {
   parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinho feliz.gif",
@@ -194,40 +233,84 @@ const paginas=[
 }
 ];
 
-let atual=0;
+let atual = 0;
+let timerAuto = null;
 
-const carta       = document.getElementById("carta");
-const area        = document.getElementById("areaGatos");
-const titulo      = document.getElementById("titulo");
-const texto       = document.getElementById("texto");
-const btn         = document.getElementById("btn");
-const musicaIntro = document.getElementById("musicaIntro");
-const musicaCarta = document.getElementById("musicaCarta");
+const carta        = document.getElementById("carta");
+const area         = document.getElementById("areaGatos");
+const titulo       = document.getElementById("titulo");
+const texto        = document.getElementById("texto");
+const btn          = document.getElementById("btn");
+const musicaIntro  = document.getElementById("musicaIntro");
+const musicaCarta  = document.getElementById("musicaCarta");
+
+function limparTimer(){
+  if(timerAuto){ clearTimeout(timerAuto); timerAuto = null; }
+}
 
 function carregarPagina(i){
+  limparTimer();
   const p = paginas[i];
 
-  if(p.tipo === "single"){
-    area.innerHTML = `<img class="${p.classe}" src="${p.gif}" alt="">`;
+  /* limpa estado padrão */
+  titulo.innerHTML = "";
+  texto.innerHTML  = "";
+  titulo.style.color = "";
+  texto.style.color  = "";
+  titulo.style.display = "";
+  btn.style.display    = "";
+  carta.classList.remove("carta-meme");
+
+  if(p.parte === "meme"){
+    /* -------- MEME: gifs grandes, sem botão, auto 10s -------- */
+    carta.classList.add("carta-meme");
+
+    if(p.tipo === "single"){
+      area.innerHTML = `<img class="meme-single" src="${p.gif}" alt="">`;
+    } else {
+      area.innerHTML = `<div class="meme-grupo">${
+        p.gifs.map(g => `<img src="${g}" alt="">`).join("")
+      }</div>`;
+    }
+
+    titulo.style.display = "none";
+    btn.style.display    = "none";
+    texto.innerHTML      = `<div class="meme-frase">${p.texto}</div>`;
+    texto.style.color    = p.textoCor;
+    carta.style.background = p.cartaBg;
+
+    /* avança automaticamente em 10s */
+    timerAuto = setTimeout(() => {
+      if(atual < paginas.length - 1){
+        atual++;
+        carregarPagina(atual);
+      }
+    }, 10000);
+
   } else {
-    area.innerHTML = `<div class="grupo ${p.classe}">${
-      p.gifs.map(g => `<img class="${p.classe === "gatinho-grupo" ? "gatinho" : "meme"}" src="${g}" alt="">`).join("")
-    }</div>`;
+    /* -------- INTRO / TRANSIÇÃO / CARTA: com botão -------- */
+    if(p.tipo === "single"){
+      area.innerHTML = `<img class="${p.classe}" src="${p.gif}" alt="">`;
+    } else {
+      area.innerHTML = `<div class="grupo ${p.classe}">${
+        p.gifs.map(g => `<img class="${p.classe === "gatinho-grupo" ? "gatinho" : "meme"}" src="${g}" alt="">`).join("")
+      }</div>`;
+    }
+
+    titulo.innerHTML   = p.titulo || "";
+    texto.innerHTML    = p.texto;
+    titulo.style.color = p.tituloCor;
+    texto.style.color  = p.textoCor;
+    carta.style.background = p.cartaBg;
+
+    btn.textContent = (i === paginas.length - 1) ? "❤️ Fim" : "Continuar";
   }
-
-  carta.style.background = p.cartaBg;
-  titulo.innerHTML       = p.titulo || "";
-  texto.innerHTML        = p.texto;
-  titulo.style.color     = p.tituloCor;
-  texto.style.color      = p.textoCor;
-
-  btn.textContent = (i === paginas.length - 1) ? "❤️ Fim" : "Continuar";
 }
 
 carregarPagina(0);
 
 btn.onclick = () => {
-  const paginaAtual = paginas[atual];
+  const p = paginas[atual];
 
   /* primeiro clique: inicia a música da intro */
   if(atual === 0){
@@ -240,8 +323,9 @@ btn.onclick = () => {
     return;
   }
 
-  /* transição: para a intro e inicia a música da carta */
-  if(paginaAtual.parte === "transicao"){
+  /* transição ("hora da leitura"):
+     para a intro e inicia a música da carta */
+  if(p.parte === "transicao"){
     musicaIntro.pause();
     musicaIntro.currentTime = 0;
     musicaCarta.currentTime = 0;
