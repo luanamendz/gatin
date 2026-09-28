@@ -136,74 +136,29 @@ body{
 .botao:disabled{opacity:.5;cursor:default}
 
 /* ============================================================
-   📱 AJUSTES ESPECÍFICOS PARA CELULAR
+   📱 AJUSTES PARA CELULAR
    ============================================================ */
 @media (max-width: 600px){
-  body{
-    padding:8px;
-  }
-
+  body{padding:8px}
   .carta{
     min-height:calc(100dvh - 16px);
     border-radius:22px;
     padding:24px 16px 20px;
     gap:12px;
   }
-
-  .meme-single{
-    max-height:50dvh;
-    border-radius:16px;
-  }
-
-  .meme-grupo{
-    gap:10px;
-  }
-
-  .meme-grupo img{
-    border-radius:16px;
-    max-height:35dvh;
-  }
-
-  .meme-frase{
-    margin-top:14px;
-    font-size:clamp(1rem,5.5vw,1.5rem);
-  }
-
-  .gatinho{
-    width:min(200px,58vw);
-    max-height:32dvh;
-  }
-
-  .grupo.gatinho-grupo img{
-    width:min(110px,26vw);
-    max-height:24dvh;
-  }
-
-  .titulo{
-    font-size:clamp(1.3rem,6vw,2rem);
-    margin:4px 0;
-  }
-
-  .texto{
-    font-size:clamp(.95rem,4.2vw,1.15rem);
-    line-height:1.65;
-  }
-
-  .botao{
-    padding:15px 36px;
-    font-size:1rem;
-    min-height:50px;
-    width:100%;
-    max-width:280px;
-  }
+  .meme-single{max-height:50dvh;border-radius:16px}
+  .meme-grupo{gap:10px}
+  .meme-grupo img{border-radius:16px;max-height:35dvh}
+  .meme-frase{margin-top:14px;font-size:clamp(1rem,5.5vw,1.5rem)}
+  .gatinho{width:min(200px,58vw);max-height:32dvh}
+  .grupo.gatinho-grupo img{width:min(110px,26vw);max-height:24dvh}
+  .titulo{font-size:clamp(1.3rem,6vw,2rem);margin:4px 0}
+  .texto{font-size:clamp(.95rem,4.2vw,1.15rem);line-height:1.65}
+  .botao{padding:15px 36px;font-size:1rem;min-height:50px;width:100%;max-width:280px}
 }
 
-/* telas muito pequenas (iPhone SE, etc) */
 @media (max-width: 380px){
-  .carta{
-    padding:18px 12px 16px;
-  }
-
+  .carta{padding:18px 12px 16px}
   .meme-single{max-height:44dvh}
   .meme-grupo img{max-height:30dvh}
   .gatinho{max-height:28dvh}
@@ -211,15 +166,9 @@ body{
   .meme-frase{font-size:1rem}
 }
 
-/* telas em paisagem (celular deitado) */
 @media (max-height: 500px) and (orientation: landscape){
   body{padding:6px}
-  .carta{
-    min-height:calc(100dvh - 12px);
-    padding:14px 20px;
-    gap:8px;
-    border-radius:16px;
-  }
+  .carta{min-height:calc(100dvh - 12px);padding:14px 20px;gap:8px;border-radius:16px}
   .meme-single{max-height:60dvh}
   .meme-grupo img{max-height:50dvh}
   .gatinho{max-height:45dvh;width:auto}
@@ -238,7 +187,7 @@ body{
   <button id="btn" class="botao">Continuar</button>
 </div>
 
-<!-- ÁUDIOS: apontando para a pasta "musicas/" -->
+<!-- ÁUDIOS -->
 <audio id="musicaIntro" loop preload="auto">
   <source src="musicas/musica1.mp3" type="audio/mpeg">
 </audio>
@@ -249,24 +198,24 @@ body{
 
 <script>
 /* ============================================================
-   TEMPOS DE CADA ETAPA (em milissegundos)
+   TEMPOS DE CADA ETAPA (ms)
    ============================================================ */
-const DURACAO_MEME       = 7500;   // 7,5s por meme
-const DURACAO_TRANSICAO  = 5000;   // 5s na tela "hora da leitura"
-const DURACAO_CARTA      = 0;      // 0 = não avança sozinha (só pelo botão)
+const DURACAO_MEME       = 7500;   // 7,5s por meme (auto)
+const DURACAO_TRANSICAO  = 0;      // 0 = transição espera clique (mobile-safe)
+const DURACAO_CARTA      = 0;      // 0 = carta só avança no botão
 
 /* ============================================================
    PÁGINAS
    ============================================================ */
 const paginas=[
 
-/* ---------- ABERTURA (precisa de clique pra liberar áudio) ---------- */
+/* ---------- ABERTURA ---------- */
 {
   parte:"intro", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinho branco.gif",
   cartaBg:"#d9e8ff", textoCor:"#2d4059", tituloCor:"#4d6a91",
   titulo:"💌",
-  texto:"Esta página contém música.<br><br>Existem duas partes:<br>• uma introdução<br>• uma carta<br><br>Clique em continuar."
+  texto:"Esta página contém música.<br><br>Existem duas partes:<br>• uma introdução<br>• e um segredo<br><br>Clique em continuar."
 },
 
 /* ---------- MEMES (auto, 7,5s cada) ---------- */
@@ -331,16 +280,16 @@ const paginas=[
   texto:"quando eu te vejo"
 },
 
-/* ---------- TRANSIÇÃO: "hora da leitura" ---------- */
+/* ---------- TRANSIÇÃO: hora da leitura ---------- */
 {
   parte:"transicao", tipo:"single",
   gif:"gifs/hora da leitura.gif",
   cartaBg:"#2b2b2b", textoCor:"#ffffff", tituloCor:"#ffffff",
   titulo:"📖",
-  texto:"agora vamos à parte importante<br><br>a música vai mudar 💌<br><br>continua quando quiser."
+  texto:"agora vamos à parte importante<br><br>a música vai mudar 💌<br><br>toca em continuar 💗"
 },
 
-/* ---------- CARTA (só avança pelo botão) ---------- */
+/* ---------- CARTA ---------- */
 {
   parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinho feliz.gif",
@@ -360,7 +309,7 @@ const paginas=[
   gif:"gifs/gatinhoacinzentado.gif",
   cartaBg:"#6f7f99", textoCor:"#fff", tituloCor:"#fff",
   titulo:"",
-  texto:"eu gosto de ser bobinha contigo, e de te mostrar os vídeos ruins da minha fy, e de te mandar aleatoriamente um peito de frango no meio do dia, de ficar jogando ludo contigo...<br><br>e o jogo e tu me roubarem, já aceitei que é preconceito do jogo."
+  texto:"eu gosto de ser bobinha contigo, e de te mostrar os vídeos ruins da minha fy, e de te mandar videos ruins no meio do dia, de ficar jogando ludo contigo...<br><br>e o jogo e tu me roubarem, já aceitei que é preconceito do jogo."
 },
 {
   parte:"carta", tipo:"single", classe:"gatinho",
@@ -408,7 +357,6 @@ const paginas=[
 
 let atual = 0;
 let timerAuto = null;
-let musicaTrocada = false;
 
 const carta        = document.getElementById("carta");
 const area         = document.getElementById("areaGatos");
@@ -418,23 +366,43 @@ const btn          = document.getElementById("btn");
 const musicaIntro  = document.getElementById("musicaIntro");
 const musicaCarta  = document.getElementById("musicaCarta");
 
+/* ============================================================
+   PRÉ-CARREGA a música da carta (deixa pronta antes do clique)
+   ============================================================ */
+musicaCarta.load();
+
 function limparTimer(){
   if(timerAuto){ clearTimeout(timerAuto); timerAuto = null; }
 }
 
-/* retorna o tempo que a página atual deve ficar na tela
-   (0 = não avança sozinha, só pelo botão) */
+/* retorna tempo de exibição (0 = não avança sozinha) */
 function duracaoDaPagina(p){
   if(p.parte === "meme")      return DURACAO_MEME;
   if(p.parte === "transicao") return DURACAO_TRANSICAO;
   if(p.parte === "carta")     return DURACAO_CARTA;
-  return 0; /* intro: espera o clique */
+  return 0;
 }
 
 function proximaPagina(){
   if(atual < paginas.length - 1){
     atual++;
     carregarPagina(atual);
+  }
+}
+
+/* ============================================================
+   TROCA DE MÚSICA — chamada SEMPRE dentro do clique do usuário
+   (regra do mobile: play() só funciona no gesto)
+   ============================================================ */
+function trocarParaMusicaCarta(){
+  try { musicaIntro.pause(); musicaIntro.currentTime = 0; } catch(e){}
+
+  musicaCarta.volume = 0.5;
+  musicaCarta.currentTime = 0;
+
+  const p = musicaCarta.play();
+  if(p && p.catch){
+    p.catch((e) => console.warn("play() musica2 falhou:", e));
   }
 }
 
@@ -451,7 +419,7 @@ function carregarPagina(i){
   btn.style.display    = "";
   carta.classList.remove("carta-meme");
 
-  /* -------- MEME: gifs grandes, sem botão, auto 7,5s -------- */
+  /* -------- MEME -------- */
   if(p.parte === "meme"){
     carta.classList.add("carta-meme");
 
@@ -469,7 +437,7 @@ function carregarPagina(i){
     texto.style.color    = p.textoCor;
     carta.style.background = p.cartaBg;
 
-  /* -------- INTRO / TRANSIÇÃO / CARTA: com botão -------- */
+  /* -------- INTRO / TRANSIÇÃO / CARTA -------- */
   } else {
     if(p.tipo === "single"){
       area.innerHTML = `<img class="${p.classe}" src="${p.gif}" alt="">`;
@@ -501,21 +469,7 @@ function carregarPagina(i){
     }
   }
 
-  /* -------- TROCA DE MÚSICA: ao entrar na "hora da leitura" -------- */
-  if(p.parte === "transicao" && !musicaTrocada){
-    musicaIntro.pause();
-    musicaIntro.currentTime = 0;
-
-    musicaCarta.volume = 0.5;
-    musicaCarta.currentTime = 0;
-    musicaCarta.play().catch((e) => {
-      console.warn("Não consegui tocar a música da carta:", e);
-    });
-
-    musicaTrocada = true;
-  }
-
-  /* -------- AUTO-AVANÇO (só quando dur > 0) -------- */
+  /* AUTO-AVANÇO (só quando dur > 0) */
   const dur = duracaoDaPagina(p);
   if(dur > 0 && i < paginas.length - 1){
     timerAuto = setTimeout(proximaPagina, dur);
@@ -524,22 +478,37 @@ function carregarPagina(i){
 
 carregarPagina(0);
 
-/* -------- CLIQUE NO BOTÃO -------- */
+/* ============================================================
+   CLIQUE NO BOTÃO
+   ============================================================ */
 btn.onclick = () => {
+  const p = paginas[atual];
+
+  /* --- 1) Primeira tela: libera áudio e começa --- */
   if(atual === 0){
     musicaIntro.volume = 0.5;
-    musicaIntro.play().catch((e) => {
-      console.warn("Não consegui tocar a música da intro:", e);
-    });
+    const prom = musicaIntro.play();
+    if(prom && prom.catch){
+      prom.catch((e) => console.warn("play() musica1 falhou:", e));
+    }
     proximaPagina();
     return;
   }
 
+  /* --- 2) Transição: TROCA A MÚSICA aqui dentro do clique --- */
+  if(p.parte === "transicao"){
+    trocarParaMusicaCarta();
+    proximaPagina();
+    return;
+  }
+
+  /* --- 3) Última tela: congela --- */
   if(atual === paginas.length - 1){
     btn.textContent = "❤️ Fim";
     return;
   }
 
+  /* --- 4) Qualquer outra: avança --- */
   proximaPagina();
 };
 </script>
