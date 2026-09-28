@@ -91,7 +91,7 @@ const paginas=[
 },
 
 /* ============================================================
-   PARTE 1 — MEMES (auto, 10s cada, gifs grandes)
+   PARTE 1 — MEMES (auto, 5s cada, gifs grandes)
    ============================================================ */
 {
   parte:"meme", tipo:"grupo",
@@ -262,7 +262,7 @@ function carregarPagina(i){
   carta.classList.remove("carta-meme");
 
   if(p.parte === "meme"){
-    /* -------- MEME: gifs grandes, sem botão, auto 10s -------- */
+    /* -------- MEME: gifs grandes, sem botão, auto 5s -------- */
     carta.classList.add("carta-meme");
 
     if(p.tipo === "single"){
@@ -279,13 +279,13 @@ function carregarPagina(i){
     texto.style.color    = p.textoCor;
     carta.style.background = p.cartaBg;
 
-    /* avança automaticamente em 10s */
+    /* avança automaticamente em 5s */
     timerAuto = setTimeout(() => {
       if(atual < paginas.length - 1){
         atual++;
         carregarPagina(atual);
       }
-    }, 10000);
+    }, 5000);
 
   } else {
     /* -------- INTRO / TRANSIÇÃO / CARTA: com botão -------- */
