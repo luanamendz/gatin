@@ -85,7 +85,7 @@ body{
    ============================================================ */
 const DURACAO_MEME       = 7500;   // 7,5s por meme
 const DURACAO_TRANSICAO  = 5000;   // 5s na tela "hora da leitura"
-const DURACAO_CARTA      = 12000;  // 12s por página da carta
+const DURACAO_CARTA      = 0;      // 0 = não avança sozinha (só pelo botão)
 
 /* ============================================================
    PÁGINAS
@@ -160,7 +160,7 @@ const paginas=[
   parte:"meme", tipo:"grupo",
   gifs:["gifs/jutim.gif","gifs/eu dia de ver.gif"],
   cartaBg:"#e8f0d9", textoCor:"#3a3a3a",
-  texto:"quando é dia de ir te ver"
+  texto:"quando eu te vejo"
 },
 
 /* ---------- TRANSIÇÃO: "hora da leitura" ---------- */
@@ -172,7 +172,7 @@ const paginas=[
   texto:"agora vamos à parte importante<br><br>a música vai mudar 💌<br><br>continua quando quiser."
 },
 
-/* ---------- CARTA (auto, 12s cada) ---------- */
+/* ---------- CARTA (só avança pelo botão) ---------- */
 {
   parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinho feliz.gif",
@@ -227,14 +227,14 @@ const paginas=[
   gifs:["gifs/orange.gif","gifs/orangecat.gif","gifs/gatinho orange.gif"],
   cartaBg:"#c7c3c3", textoCor:"#333", tituloCor:"#cc6d00",
   titulo:"",
-  texto:"colori meu mundinho altíssimo contigo nele, e eu gostei disso, meu famoso gatinho laranja formato grande, famoso lião...<br><br>gosto do teu jeito, e acho engraçado quando tu contas as histórias do teu dia, por mais que eu queira esfolar uns 2, pra pararem de dar em cima de ti, só posso desejar que eles tropecem e caiam dentro de um jazigo, sem morrer é claru."
+  texto:"colori meu mundinho de altíssimo contigo nele, e eu gostei disso, meu gatinho laranja formato grande, lião...<br><br>gosto do teu jeito, e acho engraçado quando tu contas as histórias do teu dia, por mais que eu queira esfolar uns 2, pra pararem de dar em cima de ti, só posso desejar que eles tropecem e caiam dentro de um jazigo, sem morrer é claru."
 },
 {
   parte:"carta", tipo:"single", classe:"gatinho",
   gif:"gifs/gatinho estrelado.gif",
   cartaBg:"#08366b", textoCor:"#fff", tituloCor:"#fff",
   titulo:"❤️",
-  texto:"enfim.<br><br>não era só isso.<br><br>mas o resto eu te conto pessoalmente.<br><br>❤️"
+  texto:"enfim.<br><br>te amo penca.<br><br>meu docinho.<br><br>❤️"
 }
 ];
 
@@ -254,11 +254,12 @@ function limparTimer(){
   if(timerAuto){ clearTimeout(timerAuto); timerAuto = null; }
 }
 
-/* retorna o tempo que a página atual deve ficar na tela */
+/* retorna o tempo que a página atual deve ficar na tela
+   (0 = não avança sozinha, só pelo botão) */
 function duracaoDaPagina(p){
   if(p.parte === "meme")      return DURACAO_MEME;
   if(p.parte === "transicao") return DURACAO_TRANSICAO;
-  if(p.parte === "carta")     return DURACAO_CARTA;
+  if(p.parte === "carta")     return DURACAO_CARTA;   // 0 → só botão
   return 0; /* intro: espera o clique, não avança sozinha */
 }
 
@@ -347,7 +348,7 @@ function carregarPagina(i){
     musicaTrocada = true;
   }
 
-  /* -------- AUTO-AVANÇO (exceto na intro e na última página) -------- */
+  /* -------- AUTO-AVANÇO (só quando dur > 0) -------- */
   const dur = duracaoDaPagina(p);
   if(dur > 0 && i < paginas.length - 1){
     timerAuto = setTimeout(proximaPagina, dur);
@@ -356,7 +357,7 @@ function carregarPagina(i){
 
 carregarPagina(0);
 
-/* -------- CLIQUE NO BOTÃO (funciona como "pular etapa") -------- */
+/* -------- CLIQUE NO BOTÃO -------- */
 btn.onclick = () => {
   /* primeira tela: libera o áudio e começa */
   if(atual === 0){
