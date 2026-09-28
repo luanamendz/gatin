@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Uma Carta</title>
+<title>💌 Uma Carta</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family: Georgia, serif;
 }
 
 body{
@@ -19,86 +19,120 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    transition:0.8s;
     padding:20px;
+    transition:all .8s ease;
+    font-family: "Georgia", serif;
 }
 
-.card{
-    width:min(90vw,700px);
-    background:white;
-    border-radius:25px;
-    padding:30px;
-    box-shadow:0 10px 40px rgba(0,0,0,.15);
+.carta{
+    width:min(95vw,800px);
+    min-height:650px;
+
+    background:#fffaf5;
+
+    border-radius:30px;
+
+    padding:40px;
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.15);
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
     text-align:center;
 }
 
 .gatinho{
-    width:min(220px,70vw);
-    margin-bottom:20px;
+    width:min(260px,70vw);
+    max-height:260px;
+    object-fit:contain;
+    margin-bottom:25px;
 }
 
-h1{
-    margin-bottom:20px;
-    color:#b84d7d;
+.titulo{
+    color:#c05686;
+    font-size:clamp(2rem,5vw,4rem);
+    margin-bottom:30px;
 }
 
 .texto{
-    font-size:1.2rem;
-    line-height:1.8;
-    min-height:150px;
+    font-size:clamp(1.1rem,2vw,1.5rem);
+    line-height:1.9;
     color:#444;
+    max-width:650px;
+    margin-top:10px;
 }
 
-button{
-    margin-top:25px;
+.botao{
+    margin-top:auto;
+
     border:none;
+
     background:#d85a9a;
+
     color:white;
-    padding:12px 28px;
-    border-radius:30px;
+
+    padding:15px 40px;
+
+    border-radius:999px;
+
+    font-size:1.1rem;
+
     cursor:pointer;
-    font-size:1rem;
+
+    transition:.3s;
 }
 
-button:hover{
-    opacity:.9;
+.botao:hover{
+    transform:scale(1.05);
 }
 
-@media(max-width:600px){
-
-.card{
-    padding:20px;
+.assinatura{
+    margin-top:30px;
+    font-style:italic;
 }
 
-.texto{
-    font-size:1rem;
+@media(max-width:700px){
+
+.carta{
+    padding:25px;
+    min-height:85vh;
 }
+
+.gatinho{
+    width:55vw;
 }
+
+}
+
 </style>
 </head>
 <body>
 
-<div class="card">
+<div class="carta">
 
 <img id="gatinho"
 class="gatinho"
 src="gifs/gatinho branco.gif">
 
-<h1 id="titulo">💌 Uma Carta</h1>
+<h1 id="titulo" class="titulo">
+💌 Uma Carta
+</h1>
 
 <div id="texto" class="texto">
 Esta página contém música.<br><br>
 Clique em continuar para começar.
 </div>
 
-<button id="btn">
+<button id="btn" class="botao">
 Continuar
 </button>
 
 </div>
 
 <audio id="musica" loop>
-    <source src="musica.mp3" type="audio/mpeg">
+<source src="musica.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -107,49 +141,56 @@ const paginas = [
 
 {
 gif:"gifs/gatinho branco.gif",
-cor:"#fff8fb",
+cor1:"#dfeeff",
+cor2:"#ffffff",
 titulo:"💌 Uma Carta",
 texto:"Esta página contém música.<br><br>Clique em continuar para começar."
 },
 
 {
 gif:"gifs/gatinho feliz.gif",
-cor:"#ffd6e7",
+cor1:"#3f3f3f",
+cor2:"#707070",
 titulo:"Página 1",
-texto:"Texto de teste da página 1."
+texto:"Texto da primeira página."
 },
 
 {
 gif:"gifs/gatinholaranjasem.gif",
-cor:"#f5d3b3",
+cor1:"#d6a36b",
+cor2:"#efd3ae",
 titulo:"Página 2",
-texto:"Texto de teste da página 2."
+texto:"Texto da segunda página."
 },
 
 {
 gif:"gifs/gatinhoocinzentado.gif",
-cor:"#d8dde5",
+cor1:"#6f7b8e",
+cor2:"#c4cad3",
 titulo:"Página 3",
-texto:"Texto de teste da página 3."
+texto:"Texto da terceira página."
 },
 
 {
 gif:"gifs/gatinhorolando.gif",
-cor:"#f4d7e6",
+cor1:"#f2d5e6",
+cor2:"#fff4fb",
 titulo:"Página 4",
-texto:"Texto de teste da página 4."
+texto:"Texto da quarta página."
 },
 
 {
 gif:"gifs/gatinho apaixonado.gif",
-cor:"#ffbcbc",
+cor1:"#781d1d",
+cor2:"#c94949",
 titulo:"Página 5",
-texto:"Texto de teste da página 5."
+texto:"Texto da quinta página."
 },
 
 {
 gif:"gifs/gatinho estrelado.gif",
-cor:"#11264d",
+cor1:"#071a3b",
+cor2:"#153e82",
 titulo:"❤️ Final",
 texto:"Aqui ficará a última parte da carta."
 }
@@ -158,55 +199,78 @@ texto:"Aqui ficará a última parte da carta."
 
 let atual = 0;
 
-document.body.style.background =
-paginas[0].cor;
+function carregarPagina(indice){
 
-document
-.getElementById("btn")
+const pagina = paginas[indice];
+
+document.body.style.background =
+`linear-gradient(180deg,
+${pagina.cor1},
+${pagina.cor2})`;
+
+document.getElementById("gatinho").src =
+pagina.gif;
+
+document.getElementById("titulo").innerHTML =
+pagina.titulo;
+
+document.getElementById("texto").innerHTML =
+pagina.texto;
+
+if(indice === paginas.length-1){
+
+document.getElementById("titulo").style.color =
+"white";
+
+document.getElementById("texto").style.color =
+"white";
+
+document.querySelector(".carta").style.background =
+"rgba(255,255,255,.08)";
+
+}else{
+
+document.getElementById("titulo").style.color =
+"#c05686";
+
+document.getElementById("texto").style.color =
+"#444";
+
+document.querySelector(".carta").style.background =
+"#fffaf5";
+
+}
+
+}
+
+carregarPagina(0);
+
+document.getElementById("btn")
 .addEventListener("click",()=>{
 
-if(atual===0){
-document
-.getElementById("musica")
+if(atual === 0){
+
+document.getElementById("musica")
 .play()
 .catch(()=>{});
+
 }
 
 if(atual < paginas.length-1){
 
 atual++;
 
-document.body.style.background =
-paginas[atual].cor;
-
-document.getElementById("gatinho").src =
-paginas[atual].gif;
-
-document.getElementById("titulo").innerHTML =
-paginas[atual].titulo;
-
-document.getElementById("texto").innerHTML =
-paginas[atual].texto;
-
-if(atual===paginas.length-1){
-
-document.getElementById("titulo").style.color =
-"white";
-
-document.getElementById("texto").style.color =
-"white";
+carregarPagina(atual);
 
 }else{
 
-document.getElementById("titulo").style.color =
-"#b84d7d";
-
-document.getElementById("texto").style.color =
-"#444";
+document.getElementById("btn").innerHTML =
+"❤️ Fim";
 
 }
-}
+
 });
+
 </script>
 
 </body>
